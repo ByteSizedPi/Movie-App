@@ -1,0 +1,29 @@
+<section
+  *ngIf="searchService.isOpen"
+  [ngStyle]="{ animation: searchService.animation }"
+  (resize)="resize()"
+>
+  <div id="search-section">
+    <div id="search-container" *ngIf="movies">
+      <h3 *ngIf="searchService.term" class="row center-vertical">
+        Search results for:
+        <h2>
+          {{ searchService.term }}
+        </h2>
+      </h3>
+      <div class="row wrap">
+        <img
+          imgLoad
+          [viewMovie]="movie"
+          *ngFor="let movie of movies"
+          [src]="movie | poster: 3"
+          [ngStyle]="size()"
+        />
+      </div>
+    </div>
+
+    <div *ngIf="!movies && !loaded" class="container center">
+      <div class="loader center"></div>
+    </div>
+  </div>
+</section>

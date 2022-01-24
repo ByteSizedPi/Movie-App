@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<section id="user-container">
+  <h3>My List</h3>
+  <app-scroller
+    *ngIf="!user.isRefreshing"
+    [init]="asScroller(0)"
+  ></app-scroller>
+  <!-- <section class="outlet"> -->
+  <!-- <h2 class="title">Continue Watching</h2> -->
+  <!-- <app-scroller [init]="asScroller(1)"></app-scroller> -->
+  <!-- </section> -->
+</section>

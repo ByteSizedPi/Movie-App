@@ -1,0 +1,43 @@
+<nav id="navbar" class="row space-between center-vertical w-100">
+  <div class="row">
+    <h5 [routerLink]="['/home']">home</h5>
+    <h5 [routerLink]="['/home']">movies</h5>
+    <h5>series</h5>
+    <h5>explore</h5>
+  </div>
+  <div class="end center-vertical">
+    <div id="search">
+      <input
+        (input)="input($event)"
+        type="text"
+        (focus)="input($event)"
+        placeholder="search"
+        spellcheck="false"
+      />
+      <div>
+        <img
+          *ngIf="searchService.isOpen"
+          src="assets/x.svg"
+          [ngStyle]="{ opacity: searchService.isOpen ? '1' : '0' }"
+          id="close-search"
+          (click)="close()"
+        />
+      </div>
+    </div>
+    <img
+      src="assets/user_icon.jpg"
+      alt=""
+      id="user-icon"
+      class="icon"
+      [routerLink]="['/user']"
+    />
+
+    <div class="chat center notification icon">
+      <img src="assets/send.svg" id="chat-img" alt="" />
+    </div>
+    <div class="settings center icon">
+      <img src="assets/settings.svg" id="chat-img" alt="" />
+    </div>
+  </div>
+</nav>
+<app-search></app-search>

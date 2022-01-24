@@ -1,0 +1,23 @@
+<section>
+  <video
+    *ngIf="movieStream"
+    autoplay
+    preload
+    controls
+    type="video/mp4"
+    id="video-player"
+    [src]="movieStream"
+  ></video>
+  <div class="center" *ngIf="!movieStream">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</section>

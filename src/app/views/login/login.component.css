@@ -1,0 +1,198 @@
+section {
+  height: 100vh;
+  opacity: 0;
+  -webkit-animation: fade-in 0.5s forwards;
+          animation: fade-in 0.5s forwards;
+}
+
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+}
+
+#login-container {
+  position: relative;
+  width: calc(min(15rem, calc(100vw - 4rem)));
+  background: #151515cc;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 10px;
+          box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 10px;
+  padding: 1rem 2rem;
+  overflow: hidden;
+}
+
+#login-container::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+}
+
+h2 {
+  margin: 1rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+input {
+  outline: none;
+  height: 2.3rem;
+  margin: 1rem 0 0 0;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  width: calc(100% - 0.5rem);
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  -webkit-transition: border-bottom-color 0.2s;
+  transition: border-bottom-color 0.2s;
+}
+
+button {
+  width: calc(50% - 1rem);
+  margin: 3rem 0 1rem 0;
+  height: calc(2.5rem + 0);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  padding: 0.75rem 0;
+}
+
+button:active {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+}
+
+#login {
+  margin-left: 1rem;
+  background-color: red;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#login:active {
+  background-color: #c40000;
+}
+
+#login:disabled {
+  background-color: #860000;
+  color: gray;
+  cursor: default;
+}
+
+.valid {
+  border-bottom: 4px solid lime;
+}
+
+#signup {
+  margin-right: 1rem;
+  background-color: #3b3b3b;
+}
+
+#signup:active {
+  background-color: #2f2f2f;
+}
+
+p {
+  color: #ff2e2e;
+  height: 1rem;
+  margin: 0.5rem 0 0 0;
+  padding-left: 0.25rem;
+  font-weight: 500;
+  line-height: 1rem;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  height: 0;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+  height: 1rem;
+}
+
+hr {
+  position: relative;
+  left: 0;
+  width: calc(100% + 2px);
+  margin: 0;
+  margin-top: -3px;
+  height: 4px;
+  border: none;
+  background-color: transparent;
+  border-radius: 0 0 5px 5px;
+}
+
+.submit-pending::after {
+  content: "";
+  background-color: red;
+  -webkit-animation: pending 1.25s forwards infinite ease-out;
+          animation: pending 1.25s forwards infinite ease-out;
+}
+
+.pending {
+  background-color: red;
+  -webkit-animation: pending 1.25s forwards infinite ease-out;
+          animation: pending 1.25s forwards infinite ease-out;
+}
+
+@-webkit-keyframes pending {
+  0% {
+    -webkit-clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+            clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+  25% {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  50% {
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  75% {
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  100% {
+    -webkit-clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+            clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+}
+
+@keyframes pending {
+  0% {
+    -webkit-clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+            clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+  25% {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  50% {
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  75% {
+    -webkit-clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+            clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  100% {
+    -webkit-clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+            clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+}
+/*# sourceMappingURL=login.component.css.map */

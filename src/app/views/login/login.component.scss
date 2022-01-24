@@ -1,0 +1,159 @@
+section {
+  height: 100vh;
+  opacity: 0;
+  animation: fade-in 0.5s forwards;
+}
+
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  filter: brightness(0.5);
+}
+
+#login-container {
+  position: relative;
+  width: calc(min(15rem, calc(100vw - 4rem)));
+  background: #151515cc;
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 5px 10px;
+  padding: 1rem 2rem;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    // background-color: transparent;
+  }
+}
+
+h2 {
+  margin: 1rem;
+  align-self: center;
+}
+
+input {
+  outline: none;
+  height: 2.3rem;
+  margin: 1rem 0 0 0;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  width: calc(100% - 0.5rem);
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  transition: border-bottom-color 0.2s;
+}
+
+button {
+  width: calc(50% - 1rem);
+  margin: 3rem 0 1rem 0;
+  height: calc(2.5rem + 0);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  padding: 0.75rem 0;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+#login {
+  margin-left: 1rem;
+  background-color: red;
+  transition: 0.2s;
+
+  &:active {
+    background-color: rgb(196, 0, 0);
+  }
+
+  &:disabled {
+    background-color: rgb(134, 0, 0);
+    color: gray;
+    cursor: default;
+  }
+}
+
+.valid {
+  border-bottom: 4px solid lime;
+}
+
+#signup {
+  margin-right: 1rem;
+  background-color: rgb(59, 59, 59);
+  &:active {
+    background-color: rgb(47, 47, 47);
+  }
+}
+
+p {
+  color: rgb(255, 46, 46);
+  height: 1rem;
+  margin: 0.5rem 0 0 0;
+  padding-left: 0.25rem;
+  font-weight: 500;
+  line-height: 1rem;
+  transition: 0.2s;
+  height: 0;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+  height: 1rem;
+}
+
+hr {
+  position: relative;
+  left: 0;
+  width: calc(100% + 2px);
+  margin: 0;
+  margin-top: -3px;
+  height: 4px;
+  border: none;
+  background-color: transparent;
+  border-radius: 0 0 5px 5px;
+}
+
+.submit-pending {
+  &::after {
+    content: "";
+    background-color: red;
+    animation: pending 1.25s forwards infinite ease-out;
+  }
+}
+
+.pending {
+  background-color: red;
+  animation: pending 1.25s forwards infinite ease-out;
+}
+
+@keyframes pending {
+  0% {
+    clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+  25% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+  }
+}

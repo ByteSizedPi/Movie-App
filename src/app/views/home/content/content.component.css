@@ -1,0 +1,14 @@
+#home-content {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(var(--preview-height) - 8rem);
+  margin-bottom: calc(var(--ml) + 0.25rem);
+}
+
+h3 {
+  font-size: 1.4rem;
+  color: white;
+  font-weight: 600;
+  margin: var(--ml) 0 var(--ms) calc(var(--ml) + 0.25rem);
+}
+/*# sourceMappingURL=content.component.css.map */

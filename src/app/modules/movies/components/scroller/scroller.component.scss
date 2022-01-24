@@ -1,0 +1,89 @@
+.item-container {
+  position: relative;
+
+  &:hover i {
+    opacity: 1;
+  }
+}
+
+section {
+  transition: transform 0.5s;
+  margin: 0 var(--ml);
+
+  img {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+    border-radius: calc(var(--radius-s) + 2px);
+  }
+
+  .img-container {
+    margin: 0 0.25rem;
+  }
+
+  img,
+  .card {
+    border-radius: var(--radius-s);
+    animation: load 0.5s infinite alternate;
+
+    @keyframes load {
+      from {
+        background-color: #202020;
+      }
+      to {
+        background-color: #303030;
+      }
+    }
+  }
+}
+
+i {
+  position: absolute;
+  top: 0;
+  font-size: 2rem;
+  width: calc(var(--ml) - 0.25rem + 1px);
+  transition: opacity 0.2s, background 0.1s;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  &:active {
+    color: gray;
+  }
+}
+
+.fa-chevron-left {
+  left: 0;
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+}
+
+.fa-chevron-right {
+  right: 0;
+  border-radius: var(--radius-s) 0 0 var(--radius-s);
+}
+
+h3 {
+  color: gray;
+  margin-left: var(--mm);
+}
+
+hr {
+  $width: 60px;
+  height: 5px;
+  position: relative;
+  margin: 0.5rem 1rem;
+  border: none;
+  border-left: $width solid red;
+  border-radius: 2px;
+  background: rgb(66, 66, 66);
+  width: calc(100% - 2rem - $width);
+  height: 3px;
+}
+
+.hr {
+  opacity: 0;
+}
