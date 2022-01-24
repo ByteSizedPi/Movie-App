@@ -1,3 +1,4 @@
+import { environment } from "./../../../../environments/environment.prod";
 import { Review } from "./../types/Review";
 import { MovieGroup } from "src/app/shared/types/Types";
 import { Injectable } from "@angular/core";
@@ -31,8 +32,7 @@ type Config = {
   providedIn: "root",
 })
 export class TMDB_API_Service {
-  // private API_KEY: string = "affbb38166ff1d75c2f1739788504ee7";
-  private API_KEY = process.env.API_KEY; //"affbb38166ff1d75c2f1739788504ee7";
+  private API_KEY = environment.API_KEY;
   private KEY: string = `api_key=${this.API_KEY}`;
   private BASE_URL: string = "https://api.themoviedb.org/3/";
   private LANG: string = "&language=en-US";

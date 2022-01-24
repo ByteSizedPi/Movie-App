@@ -42,7 +42,6 @@ testem.log
 /typings
 
 # environments
-/environments
 environment.prod.ts
 environment.ts
 
