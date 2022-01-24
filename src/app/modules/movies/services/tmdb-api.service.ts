@@ -31,7 +31,8 @@ type Config = {
   providedIn: "root",
 })
 export class TMDB_API_Service {
-  private API_KEY: string = "affbb38166ff1d75c2f1739788504ee7";
+  // private API_KEY: string = "affbb38166ff1d75c2f1739788504ee7";
+  private API_KEY = process.env.API_KEY; //"affbb38166ff1d75c2f1739788504ee7";
   private KEY: string = `api_key=${this.API_KEY}`;
   private BASE_URL: string = "https://api.themoviedb.org/3/";
   private LANG: string = "&language=en-US";
@@ -41,6 +42,7 @@ export class TMDB_API_Service {
   public backdropSizes: string[];
 
   constructor(private http: HttpClient) {
+    console.log(this.API_KEY);
     this.config();
   }
 
