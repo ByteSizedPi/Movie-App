@@ -1,6 +1,14 @@
-# IMDBClone
+# Movie Torrenting App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.10.
+
+## TMDB API key
+
+This project requires an API key from The Movie Database API stored as API_KEY in the environments folder (src/environments/environment.ts)
+`export const environment = {
+  production: false,
+  API_KEY: "{ TMDB_API_KEY }",
+};`
 
 ## Development server
 
