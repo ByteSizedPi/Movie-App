@@ -42,7 +42,6 @@ export class TMDB_API_Service {
   public backdropSizes: string[];
 
   constructor(private http: HttpClient) {
-    console.log(this.API_KEY);
     this.config();
   }
 

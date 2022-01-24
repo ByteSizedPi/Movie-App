@@ -19,7 +19,7 @@ import { LoginComponent } from "./views/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DirectivesModule } from "./shared/directives/directives.module";
 import { CloudinaryModule } from "@cloudinary/angular-5.x";
-import * as Cloudinary from "cloudinary-core";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,13 +43,6 @@ import * as Cloudinary from "cloudinary-core";
     MoviesModule,
     DirectivesModule,
     PipesModule,
-    CloudinaryModule.forRoot(Cloudinary, {
-      cloud_name: "mycloudname",
-      secure: true,
-      upload_preset: "mypreset",
-      // private_cdn: true,
-      cname: "mycompany.images.com",
-    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
