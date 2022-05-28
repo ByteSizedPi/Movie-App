@@ -1,45 +1,46 @@
-<section class="column center">
-  <img imgLoad src="assets/movies_bg.jpg" alt="" />
-  <form
-    [formGroup]="loginForm"
-    id="login-container"
-    class="column"
-    [ngClass]="submitPending ? 'submit-pending' : ''"
-    (ngSubmit)="onSubmit()"
-  >
-    <h2>Login</h2>
-    <input
-      type="text"
-      id="username"
-      placeholder="username"
-      spellcheck="false"
-      formControlName="username"
-      (focus)="usernameFocussed = true"
-      (blur)="usernameFocussed = false"
-      autocomplete="off"
-      [ngClass]="loginForm.get('username')?.valid ? 'valid' : ''"
-    />
-    <hr class="hr" [ngClass]="usernameIsLoading() ? 'pending' : ''" />
-    <p id="username-err" [ngClass]="usernameError() ? 'show' : ''">
-      {{ usernameError() }}
-    </p>
-    <input
-      type="text"
-      id="passsword"
-      placeholder="password"
-      type="password"
-      formControlName="password"
-      (input)="passwordErr = ''"
-    />
-    <p id="password-err" [ngClass]="passwordErr ? 'show' : ''">
-      {{ passwordErr }}
-    </p>
-    <div class="button-container row space-between">
-      <button id="signup" type="button">Sign Up</button>
-      <button id="login" type="submit" [disabled]="!loginForm.valid">
-        Log In
-      </button>
-    </div>
-    <!-- <hr class="submit-pending" [ngClass]="submitPending ? 'pending' : ''" /> -->
-  </form>
-</section>
+<!-- <section class="column center">
+	<img imgLoad src="assets/movies_bg.jpg" alt="" />
+	<form
+		[formGroup]="loginForm"
+		id="login-container"
+		class="column"
+		[ngClass]="submitPending ? 'submit-pending' : ''"
+		(ngSubmit)="onSubmit()"
+	>
+		<h2>Login</h2>
+		<input
+			type="text"
+			id="username"
+			placeholder="username"
+			spellcheck="false"
+			formControlName="username"
+			(focus)="usernameFocussed = true"
+			(blur)="usernameFocussed = false"
+			autocomplete="off"
+			[ngClass]="loginForm.get('username')?.valid ? 'valid' : ''"
+		/>
+		<hr class="hr" [ngClass]="usernameIsLoading() ? 'pending' : ''" />
+		<p id="username-err" [ngClass]="usernameError() ? 'show' : ''">
+			{{ usernameError() }}
+		</p>
+		<input
+			type="text"
+			id="passsword"
+			placeholder="password"
+			type="password"
+			formControlName="password"
+			(input)="passwordErr = ''"
+		/>
+		<p id="password-err" [ngClass]="passwordErr ? 'show' : ''">
+			{{ passwordErr }}
+		</p>
+		<div class="button-container row space-between">
+			<button id="signup" type="button">Sign Up</button>
+			<button id="login" type="submit" [disabled]="!loginForm.valid">
+				Log In
+			</button>
+		</div>
+		<hr class="submit-pending" [ngClass]="submitPending ? 'pending' : ''" />
+	</form>
+</section> -->
+<app-scroller [init]="asScroller(15)"></app-scroller>
