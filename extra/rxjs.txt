@@ -1,0 +1,3 @@
+concat() subscribe to observables in order as previous completes.
+concatMap() map values to inner observable, subscribe, then emit in order.
+mergeMap() map to inner observable but emit as they come.

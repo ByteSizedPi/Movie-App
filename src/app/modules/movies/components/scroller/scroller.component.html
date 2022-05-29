@@ -1,31 +1,31 @@
-<div class="item-container" *ngIf="!loaded || movies[0]">
-  <section [id]="init.id" class="row w-100" (window:resize)="translate()">
-    <div
-      *ngFor="let movie of getMovies()"
-      class="img-container"
-      [ngClass]="movie.title ? '' : 'card'"
-    >
-      <img
-        imgLoad
-        [viewMovie]="movie"
-        [src]="movie | poster: 3"
-        [ngStyle]="size()"
-      />
-      <hr *ngIf="init.showProgress" />
-    </div>
-  </section>
-  <i
-    *ngIf="canLeft"
-    class="fas fa-chevron-left center h-100"
-    (click)="translate(-1)"
-  ></i>
-  <i
-    *ngIf="canRight"
-    class="fas fa-chevron-right center h-100"
-    (click)="translate(1)"
-  ></i>
+<div class="item-container" *ngIf="!dataLoaded || movies[0]">
+	<section [id]="init.id" class="row w-100" (window:resize)="translate()">
+		<div
+			*ngFor="let movie of movies"
+			class="img-container"
+			[ngClass]="movie.title ? '' : 'card'"
+		>
+			<img
+				imgLoad
+				[viewMovie]="movie"
+				[src]="movie | poster: 3"
+				[ngStyle]="size()"
+			/>
+			<!-- <hr *ngIf="init.showProgress" /> -->
+		</div>
+	</section>
+	<i
+		*ngIf="canLeft"
+		class="fas fa-chevron-left center h-100"
+		(click)="translate(-1)"
+	></i>
+	<i
+		*ngIf="canRight"
+		class="fas fa-chevron-right center h-100"
+		(click)="translate(1)"
+	></i>
 </div>
 
-<div *ngIf="loaded && !movies[0]" [id]="init.id">
-  <h3>No Results</h3>
+<div *ngIf="dataLoaded && !movies[0]" [id]="init.id">
+	<h3>No Results</h3>
 </div>

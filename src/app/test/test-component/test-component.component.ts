@@ -1,23 +1,21 @@
-import { MoviesService } from "../../../modules/movies/services/movies.service";
+import { MoviesService } from "src/app/modules/movies/services/movies.service";
 import { Component, OnInit } from "@angular/core";
 import { MovieGroup, Scroller } from "src/app/shared/types/Types";
-import { asTitle } from "src/app/shared/services/Utils";
 
 @Component({
-	selector: "app-content",
-	templateUrl: "./content.component.html",
-	styleUrls: ["./content.component.scss"],
+	selector: "app-test-component",
+	templateUrl: "./test-component.component.html",
+	styleUrls: ["./test-component.component.scss"],
 })
-export class ContentComponent implements OnInit {
+export class TestComponentComponent implements OnInit {
+	constructor(private moviesService: MoviesService) {}
+
 	groups: MovieGroup[] = [
 		MovieGroup.NowPlaying,
 		MovieGroup.Popular,
 		MovieGroup.TopRated,
 		MovieGroup.Upcoming,
 	];
-	asTitle = asTitle;
-
-	constructor(private moviesService: MoviesService) {}
 
 	ngOnInit(): void {}
 

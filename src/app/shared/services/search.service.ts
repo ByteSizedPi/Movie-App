@@ -7,56 +7,56 @@ import { Observable } from "rxjs";
 import { MovieGroup } from "../types/Types";
 
 @Injectable({
-  providedIn: "root",
+	providedIn: "root",
 })
 export class SearchService {
-  private open: boolean = false;
-  private movies: Observable<Movie[]>;
-  private searchTerm: string;
-  animation: string = "slide-in 0.2s";
-  emitSearch: EventEmitter<Observable<Movie[]>> = new EventEmitter();
-  onChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+	private open: boolean = false;
+	private movies: Observable<Movie[]>;
+	private searchTerm: string;
+	animation: string = "slide-in 0.2s";
+	emitSearch: EventEmitter<Observable<Movie[]>> = new EventEmitter();
+	onChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(
-    private movies_service: MoviesService,
-    private modalService: MovieModalService
-  ) {}
+	constructor(
+		private movies_service: MoviesService,
+		private modalService: MovieModalService
+	) {}
 
-  search = (query: string) => {
-    this.searchTerm = query;
-    if (!this.open) this.openModal();
-    if (this.modalService.isOpen) this.modalService.closeModal();
+	search = (query: string) => {
+		this.searchTerm = query;
+		if (!this.open) this.openModal();
+		if (this.modalService.isOpen) this.modalService.closeModal();
 
-    let { searchMovies, getMovieGroup } = this.movies_service;
-    this.emitSearch.emit(
-      query ? searchMovies(query) : getMovieGroup(MovieGroup.Trending)
-    );
-  };
+		let { searchMovies, getMovieGroup } = this.movies_service;
+		this.emitSearch.emit(
+			query ? searchMovies(query) : getMovieGroup(MovieGroup.Trending)
+		);
+	};
 
-  results = () => this.movies;
+	results = () => this.movies;
 
-  get isOpen() {
-    return this.open;
-  }
+	get isOpen() {
+		return this.open;
+	}
 
-  get term() {
-    return this.searchTerm;
-  }
+	get term() {
+		return this.searchTerm;
+	}
 
-  closeModal = () => {
-    this.animation = "slide-out 0.2s";
+	closeModal = () => {
+		this.animation = "fade-out 0.2s";
 
-    setTimeout(() => {
-      this.open = false;
-      BODY.style.overflowY = "auto";
-      this.animation = "slide-in 0.2s";
-      this.onChange.emit(false);
-    }, 200);
-  };
+		setTimeout(() => {
+			this.open = false;
+			BODY.style.overflowY = "auto";
+			this.animation = "fade-in 0.2s";
+			this.onChange.emit(false);
+		}, 200);
+	};
 
-  openModal = () => {
-    BODY.style.overflowY = "hidden";
-    this.open = true;
-    this.onChange.emit(true);
-  };
+	openModal = () => {
+		BODY.style.overflowY = "hidden";
+		this.open = true;
+		this.onChange.emit(true);
+	};
 }

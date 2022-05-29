@@ -19,6 +19,7 @@ import { LoginComponent } from "./views/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DirectivesModule } from "./shared/directives/directives.module";
 import { CloudinaryModule } from "@cloudinary/angular-5.x";
+import { TestComponentComponent } from './test/test-component/test-component.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CloudinaryModule } from "@cloudinary/angular-5.x";
     MoviePlayerComponent,
     SearchComponent,
     LoginComponent,
+    TestComponentComponent,
   ],
   imports: [
     BrowserModule,

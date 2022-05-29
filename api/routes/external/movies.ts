@@ -44,11 +44,7 @@ const YTSIMDB = (f: firstFunc) =>
 const get = (f1: firstFunc, f2: secondFunc): Observable<Movie[]> =>
 	f1().pipe(
 		mergeMap((movie1) =>
-			f2(movie1).pipe(
-				filter((movie) => !!movie),
-				map((movie2) => mergeTypes(movie1, movie2)),
-				filter((movie) => isValidMovie(movie))
-			)
+			f2(movie1).pipe(map((movie2) => mergeTypes(movie1, movie2)))
 		),
 		toArray()
 	);
@@ -72,8 +68,5 @@ const mergeTypes = (tmdb: TMDBorYTS, yts: TMDBorYTS): Movie => {
 		title: yts.title_english,
 	};
 };
-
-const isValidMovie = (movie: Movie): boolean =>
-	!!movie.title && !!movie.summary;
 
 export { http, searchMovies, getMovieGroup, getRecommended, getSimilar };

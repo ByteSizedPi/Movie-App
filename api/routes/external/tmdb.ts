@@ -1,4 +1,3 @@
-import { Review } from "./types/Review";
 import { http } from "./movies";
 import { TMDB_BASE_URL, API_KEY } from "./types/Other";
 import {
@@ -8,41 +7,54 @@ import {
 	ReviewObj,
 	Provider,
 	ProviderObj,
+	Review,
 } from "./types/TMDBMovie";
-import { concat, EMPTY, from, Observable, forkJoin } from "rxjs";
-import { catchError, concatMap, map, mergeMap } from "rxjs/operators";
+import { Observable, forkJoin } from "rxjs";
+import { catchError, filter, map, mergeMap, switchMap } from "rxjs/operators";
 
-const KEY: string = `api_key=${API_KEY}`;
-const LANG: string = "&language=en-US";
+const KEY = `api_key=${API_KEY}`;
+const LANG = "&language=en-US";
 
-//determine TMDB return type and reduce to movies in an array
+//determine TMDB return type and reduce to TMDBMovie array
 const type = (res: any): TMDBMovie[] => {
 	if ((<Response>res).results) return (<Response>res).results;
 	if ((<TMDBMovie>res).id) return [<TMDBMovie>res];
 	if ((<External>res).movie_results) return (<External>res).movie_results;
 	return [];
 };
-
-//makes request to TMDB API and map to movies Array using type()
+//all movie requests go through httpGet to return conformed results
 const httpGet = (
 	apiString: string,
 	imdb: string = ""
-): Observable<TMDBMovie[]> =>
-	http
-		.get(TMDB_BASE_URL + apiString + KEY + LANG + imdb)
-		.pipe(map((res) => type(res)));
+): Observable<TMDBMovie[]> => {
+	const url = TMDB_BASE_URL + apiString + KEY + LANG + imdb;
+	return http.get(url).pipe(
+		map((res) => type(res)),
+		catchError(() => {
+			console.log("error retrieving movies from:" + url);
+			return [];
+		})
+	);
+};
 
+//additional get requests for movie related queries
 const httpGetReviews = (apiString: string): Observable<Review[]> =>
-	http
-		.get<ReviewObj>(TMDB_BASE_URL + apiString + KEY)
-		.pipe(map(({ results }) => results));
+	http.get<ReviewObj>(TMDB_BASE_URL + apiString + KEY).pipe(
+		map(({ results }) => results),
+		catchError(() => {
+			console.log("error retrieving reviews");
+			return [];
+		})
+	);
 
 const httpGetProviders = (apiString: string): Observable<Provider[]> =>
-	http
-		.get<ProviderObj>(TMDB_BASE_URL + apiString + KEY)
-		.pipe(
-			map(({ results }) => (results.US?.flatrate ? results.US?.flatrate : []))
-		);
+	http.get<ProviderObj>(TMDB_BASE_URL + apiString + KEY).pipe(
+		map(({ results }) => (results.US?.flatrate ? results.US?.flatrate : [])),
+		catchError(() => {
+			console.log("error retrieving providers");
+			return [];
+		})
+	);
 
 //get movie array by Group type
 const getMovieGroup = (query: string) =>
@@ -54,19 +66,21 @@ const getRecommended = (id: number) => getFull(`movie/${id}/recommendations?`);
 //get recommended for specific movie
 const getSimilar = (id: number) => getFull(`movie/${id}/similar?`);
 
-//get movie group (filled with incomplete movies) then requery api by ids for full movies one by one
+//get Movie array (by group) then send each movie to getById
 const getFull = (queryGroup: string): Observable<TMDBMovie> =>
 	httpGet(queryGroup).pipe(
-		concatMap((arr) => from(arr)),
-		mergeMap(({ id }) => getById(id).pipe(catchError(() => EMPTY)))
+		switchMap((arr) => arr),
+		mergeMap(({ id }) => getById(id))
 	);
 
-const getById = (id: number) => {
-	return forkJoin(
+//get full movie, reviews and providers then combine into object
+const getById = (id: number): Observable<TMDBMovie> => {
+	return forkJoin([
 		httpGet(`movie/${id}?`),
 		httpGetReviews(`movie/${id}/reviews?`),
-		httpGetProviders(`movie/${id}/watch/providers?`)
-	).pipe(
+		httpGetProviders(`movie/${id}/watch/providers?`),
+	]).pipe(
+		filter((movie) => !!movie[0]),
 		map(([movie, reviews, providers]) => {
 			return {
 				...movie[0],
@@ -77,21 +91,28 @@ const getById = (id: number) => {
 	);
 };
 
-const getMovieByIMDBId = (id: string) =>
-	httpGet(`find/${id}?`, "&external_source=imdb_id").pipe(
-		mergeMap(([{ id }]) => getById(id))
+//when searched by imdb_id, since limited results are returned, pass to getById for full results
+const getMovieByIMDBId = (id: string) => {
+	// console.log(id);
+	return httpGet(`find/${id}?`, "&external_source=imdb_id").pipe(
+		map((movie) => {
+			console.log(movie[0].id);
+			return movie;
+		}),
+		switchMap(([{ id }]) => getById(id))
 	);
+};
 
-const getMoviesByIMDBIds = (ids: string[]) =>
-	concat(...ids.map((id) => getMovieByIMDBId(id)));
+// const getMoviesByIMDBIds = (ids: string[]) => {
+// 	console.log(ids);
+// 	return concat(...ids.map((id) => getMovieByIMDBId(id)));
+// };
 
 export {
-	httpGetReviews,
-	httpGetProviders,
 	getMovieGroup,
 	getRecommended,
 	getSimilar,
 	getFull,
 	getMovieByIMDBId,
-	getMoviesByIMDBIds,
+	// getMoviesByIMDBIds,
 };
