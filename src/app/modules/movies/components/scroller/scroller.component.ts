@@ -10,7 +10,6 @@ import {
 import { MovieModalService } from "src/app/shared/services/movie-modal.service";
 import { Id, constrain, For } from "src/app/shared/services/Utils";
 import { Scroller } from "src/app/shared/types/Types";
-import { TMDB_API_Service } from "../../services/tmdb-api.service";
 import { Movie } from "../../types/Movie";
 
 @Component({
@@ -28,13 +27,13 @@ export class ScrollerComponent implements OnInit, AfterViewInit {
 	dataLoaded = false;
 
 	@Input() init: Scroller;
+	@ViewChild("scroller") scroller: ElementRef;
 
-	constructor(public modal: MovieModalService, public tmdb: TMDB_API_Service) {}
+	constructor(public modal: MovieModalService) {}
 
 	ngOnInit(): void {
-		let sub = this.init.movies.subscribe((movies) => {
+		this.init.movies.subscribe((movies) => {
 			this.movies = movies;
-			sub.unsubscribe();
 			this.dataLoaded = true;
 			this.translate();
 		});
@@ -42,8 +41,8 @@ export class ScrollerComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		setTimeout(() => {
-			this.calcWidth();
 			this.movies = this.setTempCards();
+			this.calcWidth();
 		}, 0);
 	}
 
@@ -58,12 +57,14 @@ export class ScrollerComponent implements OnInit, AfterViewInit {
 
 		this.calcOffset(dir);
 
-		Id(this.init.id).style.transition = dir === 0 ? "none" : "transform .5s";
+		this.scrollerEl().style.transition = dir === 0 ? "none" : "transform .5s";
 
 		const newWidth = this.calcWidth();
-		Id(this.init.id).style.transform = `translateX(${
+		const translate = `translateX(${
 			-this.offset * (newWidth + this.padding)
 		}px)`;
+
+		this.scrollerEl().style.transform = translate;
 
 		this.canScroll();
 	}
@@ -77,13 +78,15 @@ export class ScrollerComponent implements OnInit, AfterViewInit {
 
 	calcWidth() {
 		const max_width = 180;
-		const contWidth = Id(this.init.id).clientWidth - this.calcMargins();
+		const contWidth = this.scrollerEl().clientWidth - this.calcMargins();
 
 		this.itemsInARow = Math.ceil(contWidth / max_width);
 		return contWidth / this.itemsInARow - this.padding;
 	}
 
 	calcMargins = () => 2 * document.documentElement.clientWidth * 0.04;
+
+	scrollerEl = () => this.scroller.nativeElement;
 
 	size = () => ({
 		width: `${this.calcWidth()}px`,

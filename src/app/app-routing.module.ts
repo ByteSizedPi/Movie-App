@@ -1,4 +1,4 @@
-import { TestComponentComponent } from "./test/test-component/test-component.component";
+import { TestComponent } from "./test/test.component";
 import { MoviePlayerComponent } from "./views/movie-player/movie-player.component";
 import { UserComponent } from "./views/user/user.component";
 import { HomeComponent } from "./views/home/home.component";
@@ -13,7 +13,7 @@ const routes: Routes = [
 	{ path: "home", canActivate: [AuthGuardService], component: HomeComponent },
 	{ path: "user", canActivate: [AuthGuardService], component: UserComponent },
 	{ path: "watch", component: MoviePlayerComponent },
-	{ path: "test", component: TestComponentComponent },
+	{ path: "test", component: TestComponent },
 	// { path: 'player', component: MoviePlayerComponent },
 
 	// {

@@ -1,5 +1,5 @@
 <div class="item-container" *ngIf="!dataLoaded || movies[0]">
-	<section [id]="init.id" class="row w-100" (window:resize)="translate()">
+	<section class="row w-100" (window:resize)="translate()" #scroller>
 		<div
 			*ngFor="let movie of movies"
 			class="img-container"
@@ -11,7 +11,6 @@
 				[src]="movie | poster: 3"
 				[ngStyle]="size()"
 			/>
-			<!-- <hr *ngIf="init.showProgress" /> -->
 		</div>
 	</section>
 	<i

@@ -1,17 +1,26 @@
-import { TMDB_API_Service } from "src/app/modules/movies/services/tmdb-api.service";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
+import { MoviesService } from "src/app/modules/movies/services/movies.service";
+import { MovieGroup, Scroller } from "src/app/shared/types/Types";
+import { asTitle } from "src/app/shared/services/Utils";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+	selector: "app-home",
+	templateUrl: "./home.component.html",
+	styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit {
-  constructor(private tmdb: TMDB_API_Service) {}
+export class HomeComponent {
+	constructor(private moviesService: MoviesService) {}
+	groups: MovieGroup[] = [
+		MovieGroup.NowPlaying,
+		MovieGroup.Popular,
+		MovieGroup.TopRated,
+		MovieGroup.Upcoming,
+	];
+	asTitle = asTitle;
 
-  ngOnInit(): void {
-    // this.tmdb
-    //   .newGetFull("trending/all/week?")
-    //   .subscribe((movie) => console.log(movie));
-  }
+	asScroller(i: number): Scroller {
+		return {
+			movies: this.moviesService.getMovieGroup(this.groups[i]),
+		};
+	}
 }
