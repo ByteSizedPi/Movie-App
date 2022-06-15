@@ -6,7 +6,6 @@ import { YTSMovie } from "src/app/modules/movies/types/YTSMovie";
 import { Injectable } from "@angular/core";
 import { Movie } from "../types/Movie";
 import { MovieGroup } from "src/app/shared/types/Types";
-import { map } from "rxjs/operators";
 
 type TMDBorYTS = TMDBMovie | YTSMovie;
 
@@ -14,13 +13,7 @@ type TMDBorYTS = TMDBMovie | YTSMovie;
 	providedIn: "root",
 })
 export class MoviesService {
-	constructor(
-		private user_api: UserService,
-		private http: HttpClient,
-		private tmdb: TMDB_API_Service
-	) {
-		this.tmdb.config();
-	}
+	constructor(private user_api: UserService, private http: HttpClient) {}
 
 	private BASE_URL = "http://127.0.0.1:3000/api/movies/";
 

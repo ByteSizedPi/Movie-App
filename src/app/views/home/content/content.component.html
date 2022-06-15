@@ -1,6 +1,0 @@
-<section class="column" id="home-content">
-  <div *ngFor="let group of groups; index as i">
-    <h3>{{ asTitle(groups[i]) | titlecase }}</h3>
-    <app-scroller [init]="asScroller(i)"></app-scroller>
-  </div>
-</section>
