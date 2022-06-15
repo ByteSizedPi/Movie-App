@@ -1,6 +1,5 @@
 import { Observable } from "rxjs";
 import { Router, Request, Response } from "express";
-import { setHeaders } from "../../Utils";
 import {
 	searchMovies,
 	getMovieGroup,
@@ -10,7 +9,6 @@ import {
 import { Movie } from "./types/Movie";
 
 const router: Router = Router();
-router.use(setHeaders);
 
 const sendMovies = (obs: Observable<Movie[]>, res: Response) =>
 	obs.subscribe(
@@ -34,4 +32,4 @@ router.get("/similar=:tmdb_id", (req: Request, res: Response) =>
 	sendMovies(getSimilar(+req.params.tmdb_id), res)
 );
 
-module.exports = router;
+export { router };

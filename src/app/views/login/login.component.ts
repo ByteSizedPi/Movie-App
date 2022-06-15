@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
 		return {
 			id: `list-scroller-${i}`,
 			aspect: !(i % 2) ? 3 / 2 : 9 / 16,
-			movies: this.movies.searchMovies("shrek"),
+			movies: this.movies.searchMovies("avengers"),
 		};
 	}
 }

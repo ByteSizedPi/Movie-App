@@ -22,6 +22,7 @@ const type = (res: any): TMDBMovie[] => {
 	if ((<External>res).movie_results) return (<External>res).movie_results;
 	return [];
 };
+
 //all movie requests go through httpGet to return conformed results
 const httpGet = (
 	apiString: string,
@@ -30,10 +31,7 @@ const httpGet = (
 	const url = TMDB_BASE_URL + apiString + KEY + LANG + imdb;
 	return http.get(url).pipe(
 		map((res) => type(res)),
-		catchError(() => {
-			console.log("error retrieving movies from:" + url);
-			return [];
-		})
+		catchError(() => [])
 	);
 };
 
@@ -41,19 +39,13 @@ const httpGet = (
 const httpGetReviews = (apiString: string): Observable<Review[]> =>
 	http.get<ReviewObj>(TMDB_BASE_URL + apiString + KEY).pipe(
 		map(({ results }) => results),
-		catchError(() => {
-			console.log("error retrieving reviews");
-			return [];
-		})
+		catchError(() => [])
 	);
 
 const httpGetProviders = (apiString: string): Observable<Provider[]> =>
 	http.get<ProviderObj>(TMDB_BASE_URL + apiString + KEY).pipe(
 		map(({ results }) => (results.US?.flatrate ? results.US?.flatrate : [])),
-		catchError(() => {
-			console.log("error retrieving providers");
-			return [];
-		})
+		catchError(() => [])
 	);
 
 //get movie array by Group type
@@ -92,16 +84,10 @@ const getById = (id: number): Observable<TMDBMovie> => {
 };
 
 //when searched by imdb_id, since limited results are returned, pass to getById for full results
-const getMovieByIMDBId = (id: string) => {
-	// console.log(id);
-	return httpGet(`find/${id}?`, "&external_source=imdb_id").pipe(
-		map((movie) => {
-			console.log(movie[0].id);
-			return movie;
-		}),
+const getMovieByIMDBId = (id: string) =>
+	httpGet(`find/${id}?`, "&external_source=imdb_id").pipe(
 		switchMap(([{ id }]) => getById(id))
 	);
-};
 
 // const getMoviesByIMDBIds = (ids: string[]) => {
 // 	console.log(ids);
